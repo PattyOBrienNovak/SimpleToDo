@@ -13,11 +13,17 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-pink/50 to-purple-600/50 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-5xl font-bold mb-4">Organize Your Life</h1>
-            <p className="text-xl mb-8">Efficiently manage your tasks with our AI-powered to-do list</p>
-            <button className="bg-pink hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-full text-lg transition-colors">
-              Get Started
-            </button>
+            <div className="bg-gray-800/80 p-4 rounded-lg inline-block mb-4">
+              <h1 className="text-5xl font-bold">Organize Your Life</h1>
+            </div>
+            <div className="bg-gray-800/80 p-4 rounded-lg inline-block mb-8">
+              <p className="text-xl">Efficiently manage your tasks with our AI-powered to-do list</p>
+            </div>
+            <div className="mt-4 flex justify-center">
+              <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold w-32 h-32 rounded-full text-lg transition-colors flex items-center justify-center">
+                <span>Get Started</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>

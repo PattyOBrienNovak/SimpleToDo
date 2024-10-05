@@ -6,11 +6,13 @@
   --color-navy: #1a1a2e;
   --color-navy-light: #16213e;
   --color-pink: #e94560;
+  --color-light-grey2: #f0f0f0; /* Add this new variable */
+  --color-light-grey: #efd7ea; /* Add this new variable */
 }
 
 body {
-  background-color: var(--color-navy);
-  color: white;
+  background-color: var(--color-light-grey) !important;
+  color: #333; /* Change text color to dark grey for better contrast */
 }
 
 .bg-navy {
@@ -38,3 +40,9 @@ body {
 }
 
 /* Add any additional global styles here */
+
+/* Add this new rule */
+#__next, main, .main-content {
+  background-color: var(--color-light-grey);
+  min-height: 100vh;
+}
