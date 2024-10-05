@@ -1,27 +1,40 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-navy: #1a1a2e;
+  --color-navy-light: #16213e;
+  --color-pink: #e94560;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-navy);
+  color: white;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.bg-navy {
+  background-color: var(--color-navy);
 }
+
+.bg-navy-light {
+  background-color: var(--color-navy-light);
+}
+
+.text-pink {
+  color: var(--color-pink);
+}
+
+.bg-pink {
+  background-color: var(--color-pink);
+}
+
+.hover\:bg-pink-700:hover {
+  background-color: #d63d57;
+}
+
+.hover\:text-pink:hover {
+  color: var(--color-pink);
+}
+
+/* Add any additional global styles here */
