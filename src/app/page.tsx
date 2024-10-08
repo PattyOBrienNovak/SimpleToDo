@@ -31,7 +31,7 @@ export default function Home() {
       <section className="features grid grid-cols-3 gap-8 my-16">
         <div className="feature-card bg-navy-light p-6 rounded-lg">
           <h3 className="text-2xl font-bold mb-2">Smart Prioritization</h3>
-          <p>Our AI helps you focus on what's most important</p>
+          <p>Our AI helps you focus on what&apos;s most important</p>
         </div>
         <div className="feature-card bg-navy-light p-6 rounded-lg">
           <h3 className="text-2xl font-bold mb-2">Seamless Sync</h3>
