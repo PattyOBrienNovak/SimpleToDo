@@ -11,15 +11,15 @@ const AddTodo = ({ addTodo }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4">
+    <form onSubmit={handleSubmit} className="w-full">
       <input
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Add a new task"
-        className="border p-2 mr-2 rounded text-gray-800 placeholder-gray-400"
+        className="w-full border border-gray-300 bg-white p-2 rounded text-gray-800 placeholder-gray-400 mb-2"
       />
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+      <button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold p-2 rounded transition-colors">
         Add Task
       </button>
     </form>

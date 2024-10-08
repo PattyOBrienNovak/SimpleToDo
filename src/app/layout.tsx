@@ -14,20 +14,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-navy text-white">
-        <header className="bg-navy py-4">
-          <nav className="container mx-auto flex justify-between items-center">
-            <h1 className="text-3xl font-bold">
-              <span className="text-pink">MY TO-DO</span> LIST APP
-            </h1>
-            <ul className="flex space-x-6">
-              <li><a href="#" className="hover:text-pink transition-colors">Home</a></li>
-              <li><a href="#" className="hover:text-pink transition-colors">Features</a></li>
-              <li><a href="#" className="hover:text-pink transition-colors">About</a></li>
-              <li><a href="#" className="hover:text-pink transition-colors">Contact</a></li>
-            </ul>
-          </nav>
-        </header>
-
         <main className="container mx-auto mt-8">
           {children}
         </main>

@@ -5,20 +5,26 @@ import Image from 'next/image';
 import TodoList from '../components/TodoList';
 import AddTodo from '../components/AddTodo';
 
-export default function Home() {
-  const [todos, setTodos] = useState([]);
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
 
-  const addTodo = (text) => {
+export default function Home() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const addTodo = (text: string) => {
     setTodos([...todos, { id: Date.now(), text, completed: false }]);
   };
 
-  const toggleTodo = (id) => {
+  const toggleTodo = (id: number) => {
     setTodos(todos.map(todo => 
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
 
-  const deleteTodo = (id) => {
+  const deleteTodo = (id: number) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
@@ -33,16 +39,17 @@ export default function Home() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-pink/50 to-purple-600/50 flex items-center justify-center">
-          <div className="text-center w-full max-w-md">
+          <div className="text-center w-full max-w-md px-4"> {/* Added px-4 for some horizontal padding */}
             <div className="bg-gray-800/80 p-4 rounded-lg inline-block mb-4">
               <h1 className="text-5xl font-bold">Organize Your Life</h1>
             </div>
             <div className="bg-gray-800/80 p-4 rounded-lg inline-block mb-8">
               <p className="text-xl">
-                {`Efficiently manage your tasks with our AI-powered to-do list`}
+                Efficiently manage your tasks with<br />
+                our AI-powered to-do list
               </p>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 bg-gray-800/80 p-4 rounded-lg"> {/* Added background and padding */}
               <AddTodo addTodo={addTodo} />
             </div>
           </div>
