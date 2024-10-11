@@ -2,7 +2,7 @@ import React from 'react';
 
 const TodoList = ({ todos, toggleTodo, deleteTodo }) => {
   return (
-    <ul>
+    <ul className="text-sm"> {/* Added text-sm class to reduce font size */}
       {todos.map((todo) => (
         <li key={todo.id} className="flex items-center mb-2">
           <input
@@ -16,7 +16,7 @@ const TodoList = ({ todos, toggleTodo, deleteTodo }) => {
           </span>
           <button
             onClick={() => deleteTodo(todo.id)}
-            className="ml-auto bg-red-500 text-white p-1 rounded"
+            className="ml-auto bg-red-500 text-white p-1 rounded text-xs"
           >
             Delete
           </button>
