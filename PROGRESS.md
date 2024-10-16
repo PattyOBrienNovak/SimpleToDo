@@ -9,7 +9,7 @@
 6. Adjusted text formatting in the hero section
 7. Added proper TypeScript type definitions to resolve warnings
 
-10-10-24:
+##10-10-24:
 
 1. Integrated OpenAI API to generate tasks based on user-defined goals
 2. Created a modal component for goal input and task generation
