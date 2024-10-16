@@ -19,8 +19,10 @@
 6. Ensured proper numbering and formatting of AI-generated tasks
 7. Resolved various technical issues related to API integration and component rendering
 
+
+
 ## Next Steps
-- Add data persistence (e.g., local storage or a backend API)
+- Done! Add data persistence (e.g., local storage or a backend API)
 - Implement task categories or priorities
 - Add due dates to tasks
 - Create a more responsive design for different screen sizes
