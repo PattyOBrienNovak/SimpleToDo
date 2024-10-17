@@ -20,6 +20,7 @@ export default function Home() {
 
   useEffect(() => {
     console.log('Home component mounted');
+    fetchTasks();
     return () => {
       console.log('Home component unmounted');
     };
@@ -30,16 +31,37 @@ export default function Home() {
     setTodos(prevTodos => [...prevTodos, { id: Date.now(), text, completed: false }]);
   };
 
-  const toggleTodo = (id: number) => {
+  const toggleTodo = async (id: number) => {
     console.log('Toggling todo:', id);
-    setTodos(prevTodos => prevTodos.map(todo => 
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+    try {
+      const todoToToggle = todos.find(todo => todo.id === id);
+      const newStatus = todoToToggle?.completed ? 'TODO' : 'COMPLETED';
+      const response = await fetch(`/api/tasks`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status: newStatus }),
+      });
+      if (!response.ok) throw new Error('Failed to toggle task');
+      const updatedTask = await response.json();
+      setTodos(prevTodos => prevTodos.map(todo => 
+        todo.id === id ? { ...todo, completed: updatedTask.status === 'COMPLETED' } : todo
+      ));
+    } catch (error) {
+      console.error('Error toggling task:', error);
+      setError('Failed to toggle task. Please try again.');
+    }
   };
 
-  const deleteTodo = (id: number) => {
+  const deleteTodo = async (id: number) => {
     console.log('Deleting todo:', id);
-    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+    try {
+      const response = await fetch(`/api/tasks?id=${id}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error('Failed to delete task');
+      setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+    } catch (error) {
+      console.error('Error deleting task:', error);
+      setError('Failed to delete task. Please try again.');
+    }
   };
 
   const handleGenerateTasks = async (goal: string) => {
@@ -51,6 +73,22 @@ export default function Home() {
     } catch (err) {
       console.error('Error generating tasks:', err);
       setError('Failed to generate tasks. Please try again.');
+    }
+  };
+
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch('/api/tasks');
+      if (!response.ok) throw new Error('Failed to fetch tasks');
+      const tasks = await response.json();
+      setTodos(tasks.map((task: any) => ({
+        id: task.id,
+        text: task.title,
+        completed: task.status === 'COMPLETED'
+      })));
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+      setError('Failed to fetch tasks. Please refresh the page.');
     }
   };
 
