@@ -26,9 +26,21 @@ export default function Home() {
     };
   }, []);
 
-  const addTodo = (text: string) => {
+  const addTodo = async (text: string) => {
     console.log('Adding todo:', text);
-    setTodos(prevTodos => [...prevTodos, { id: Date.now(), text, completed: false }]);
+    try {
+      const response = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: text }),
+      });
+      if (!response.ok) throw new Error('Failed to add task');
+      const newTask = await response.json();
+      setTodos(prevTodos => [...prevTodos, { id: newTask.id, text: newTask.title, completed: false }]);
+    } catch (error) {
+      console.error('Error adding task:', error);
+      setError('Failed to add task. Please try again.');
+    }
   };
 
   const toggleTodo = async (id: number) => {

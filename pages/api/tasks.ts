@@ -21,13 +21,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { title, description } = req.body
+    const { title, description } = req.body;
     const task = await prisma.task.create({
       data: { title, description },
-    })
-    res.status(201).json(task)
+    });
+    res.status(201).json(task);
   } catch (error) {
-    handleError(res, 'Error creating task', error)
+    handleError(res, 'Error creating task', error);
   }
 }
 
