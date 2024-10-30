@@ -11,6 +11,8 @@ interface Todo {
   id: number;
   text: string;
   completed: boolean;
+  title?: string;
+  status?: string;
 }
 
 export default function Home() {
@@ -92,10 +94,10 @@ export default function Home() {
     try {
       const response = await fetch('/api/tasks');
       if (!response.ok) throw new Error('Failed to fetch tasks');
-      const tasks = await response.json();
-      setTodos(tasks.map((task: any) => ({
+      const tasks: Todo[] = await response.json();
+      setTodos(tasks.map((task) => ({
         id: task.id,
-        text: task.title,
+        text: task.title || '',
         completed: task.status === 'COMPLETED'
       })));
     } catch (error) {
