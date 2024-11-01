@@ -45,17 +45,17 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePut(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { id, completed } = req.body
-    if (typeof id !== 'number' || typeof completed !== 'boolean') {
-      return res.status(400).json({ message: 'Invalid input' })
+    const { id, status } = req.body;
+    if (typeof id !== 'number' || typeof status !== 'string') {
+      return res.status(400).json({ message: 'Invalid input' });
     }
     const task = await prisma.task.update({
       where: { id },
-      data: { completed },
-    })
-    res.status(200).json(task)
+      data: { completed: status === 'COMPLETED' },
+    });
+    res.status(200).json(task);
   } catch (error) {
-    handleError(res, 'Error updating task', error)
+    handleError(res, 'Error updating task', error);
   }
 }
 
