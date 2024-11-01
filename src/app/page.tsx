@@ -34,11 +34,11 @@ export default function Home() {
       const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: text }),
+        body: JSON.stringify({ text }),
       });
       if (!response.ok) throw new Error('Failed to add task');
       const newTask = await response.json();
-      setTodos(prevTodos => [...prevTodos, { id: newTask.id, text: newTask.title, completed: false }]);
+      setTodos(prevTodos => [...prevTodos, newTask]);
     } catch (error) {
       console.error('Error adding task:', error);
       setError('Failed to add task. Please try again.');
