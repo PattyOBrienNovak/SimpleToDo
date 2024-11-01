@@ -15,6 +15,11 @@ interface Todo {
   status?: string;
 }
 
+interface GeneratedTask {
+  id: number;
+  text: string;
+}
+
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isGoalModalOpen, setIsGoalModalOpen] = useState(false);
@@ -83,13 +88,20 @@ export default function Home() {
       console.log('Generating tasks for goal:', goal);
       const generatedTasks = await generateTasks(goal);
       
-      // Sort the tasks based on the number at the beginning of each task
-      const sortedTasks = generatedTasks
-        .map((task, index) => ({ text: task, id: index + 1 })) // Create an object with text and id
-        .sort((a, b) => a.id - b.id); // Sort by id (which corresponds to the order)
+      // Filter out blank lines and create an array of task objects
+      const newTasks: GeneratedTask[] = generatedTasks
+        .filter(task => task.trim() !== '') // Remove blank lines
+        .map(task => {
+          const match = task.match(/^(\d+)\.\s*(.*)$/); // Match the number at the start
+          return match ? { id: parseInt(match[1]), text: match[2] } : null; // Create an object with id and text
+        })
+        .filter((task): task is GeneratedTask => task !== null); // Type guard to filter out nulls
 
-      // Add each sorted task to the to-do list
-      sortedTasks.forEach(task => addTodo(task.text));
+      // Combine existing tasks with new tasks
+      const combinedTasks: Todo[] = [...todos, ...newTasks.map(task => ({ id: task.id, text: task.text, completed: false }))];
+
+      // Update the state with combined tasks
+      setTodos(combinedTasks);
       setIsGoalModalOpen(false);
     } catch (err) {
       console.error('Error generating tasks:', err);
