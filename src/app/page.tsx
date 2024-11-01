@@ -55,15 +55,25 @@ export default function Home() {
     try {
       const todoToToggle = todos.find(todo => todo.id === id);
       const newStatus = todoToToggle?.completed ? 'TODO' : 'COMPLETED';
+      
+      // Update the local state immediately
+      const updatedTodos = todos.map(todo => 
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      );
+      setTodos(updatedTodos);
+
       const response = await fetch(`/api/tasks`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, status: newStatus }),
       });
+      
       if (!response.ok) throw new Error('Failed to toggle task');
+      
       const updatedTask = await response.json();
+      // Optionally, you can update the state again with the response if needed
       setTodos(prevTodos => prevTodos.map(todo => 
-        todo.id === id ? { ...todo, completed: updatedTask.status === 'COMPLETED' } : todo
+        todo.id === id ? { ...todo, completed: updatedTask.completed } : todo
       ));
     } catch (error) {
       console.error('Error toggling task:', error);

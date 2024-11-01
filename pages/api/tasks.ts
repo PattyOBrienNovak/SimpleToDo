@@ -53,7 +53,7 @@ async function handlePut(req: NextApiRequest, res: NextApiResponse) {
       where: { id },
       data: { completed: status === 'COMPLETED' },
     });
-    res.status(200).json(task);
+    res.status(200).json({ id: task.id, completed: task.completed });
   } catch (error) {
     handleError(res, 'Error updating task', error);
   }
