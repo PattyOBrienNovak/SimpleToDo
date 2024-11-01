@@ -43,7 +43,7 @@ export default function Home() {
       });
       if (!response.ok) throw new Error('Failed to add task');
       const newTask = await response.json();
-      setTodos(prevTodos => [...prevTodos, newTask]);
+      setTodos(prevTodos => [newTask, ...prevTodos]);
     } catch (error) {
       console.error('Error adding task:', error);
       setError('Failed to add task. Please try again.');
