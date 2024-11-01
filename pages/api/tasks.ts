@@ -21,9 +21,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { title } = req.body;
+    const { text } = req.body;
     const task = await prisma.task.create({
-      data: { text: title },
+      data: { text },
     });
     res.status(201).json(task);
   } catch (error) {
@@ -42,13 +42,13 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePut(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { id, status } = req.body
-    if (typeof id !== 'number' || !['TODO', 'IN_PROGRESS', 'COMPLETED'].includes(status)) {
+    const { id, completed } = req.body
+    if (typeof id !== 'number' || typeof completed !== 'boolean') {
       return res.status(400).json({ message: 'Invalid input' })
     }
     const task = await prisma.task.update({
       where: { id },
-      data: { completed: status === 'COMPLETED' },
+      data: { completed },
     })
     res.status(200).json(task)
   } catch (error) {
