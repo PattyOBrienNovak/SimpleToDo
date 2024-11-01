@@ -116,8 +116,8 @@ export default function Home() {
       const tasks: Todo[] = await response.json();
       setTodos(tasks.map((task) => ({
         id: task.id,
-        text: task.title || '',
-        completed: task.status === 'COMPLETED'
+        text: task.text,
+        completed: task.completed
       })));
     } catch (error) {
       console.error('Error fetching tasks:', error);
