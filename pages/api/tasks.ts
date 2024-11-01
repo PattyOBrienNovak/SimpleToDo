@@ -21,9 +21,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 async function handlePost(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { title, description } = req.body;
+    const { title } = req.body;
     const task = await prisma.task.create({
-      data: { title, description },
+      data: { text: title },
     });
     res.status(201).json(task);
   } catch (error) {
@@ -48,7 +48,7 @@ async function handlePut(req: NextApiRequest, res: NextApiResponse) {
     }
     const task = await prisma.task.update({
       where: { id },
-      data: { status: status as 'TODO' | 'IN_PROGRESS' | 'COMPLETED' },
+      data: { completed: status === 'COMPLETED' },
     })
     res.status(200).json(task)
   } catch (error) {
