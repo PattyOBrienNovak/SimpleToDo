@@ -114,11 +114,21 @@ export default function Home() {
       const response = await fetch('/api/tasks');
       if (!response.ok) throw new Error('Failed to fetch tasks');
       const tasks: Todo[] = await response.json();
-      setTodos(tasks.map((task) => ({
-        id: task.id,
-        text: task.text,
-        completed: task.completed
-      })));
+
+      // Sort tasks based on the number at the beginning of the text
+      const sortedTasks = tasks
+        .map((task) => ({
+          id: task.id,
+          text: task.text,
+          completed: task.completed,
+        }))
+        .sort((a, b) => {
+          const aNumber = parseInt(a.text.split('.')[0], 10);
+          const bNumber = parseInt(b.text.split('.')[0], 10);
+          return aNumber - bNumber; // Sort in ascending order
+        });
+
+      setTodos(sortedTasks);
     } catch (error) {
       console.error('Error fetching tasks:', error);
       setError('Failed to fetch tasks. Please refresh the page.');
