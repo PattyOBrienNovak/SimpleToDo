@@ -82,7 +82,14 @@ export default function Home() {
     try {
       console.log('Generating tasks for goal:', goal);
       const generatedTasks = await generateTasks(goal);
-      generatedTasks.forEach(task => addTodo(task));
+      
+      // Sort the tasks based on the number at the beginning of each task
+      const sortedTasks = generatedTasks
+        .map((task, index) => ({ text: task, id: index + 1 })) // Create an object with text and id
+        .sort((a, b) => a.id - b.id); // Sort by id (which corresponds to the order)
+
+      // Add each sorted task to the to-do list
+      sortedTasks.forEach(task => addTodo(task.text));
       setIsGoalModalOpen(false);
     } catch (err) {
       console.error('Error generating tasks:', err);
